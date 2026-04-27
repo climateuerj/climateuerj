@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Climate · Laboratório Ambiental — Print</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: oklch(0.97 0.008 110);
+    --paper-2: oklch(0.94 0.012 115);
+    --paper-3: oklch(0.91 0.018 120);
+    --ink: oklch(0.18 0.012 150);
+    --ink-2: oklch(0.36 0.014 150);
+    --ink-3: oklch(0.55 0.012 150);
+    --line: oklch(0.85 0.02 130);
+    --line-2: oklch(0.78 0.025 130);
+    --moss: oklch(0.42 0.09 155);
+    --moss-deep: oklch(0.30 0.08 158);
+    --lichen: oklch(0.78 0.14 130);
+    --lichen-soft: oklch(0.88 0.09 128);
+    --display: 'Inter Tight', system-ui, sans-serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; }
+  .display { font-family: var(--display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+
+  @page { size: A4 portrait; margin: 14mm; }
+  @media print {
+    body { font-size: 10pt; }
+    section { break-inside: avoid-page; }
+    article, .avoid-break { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="climate/data.jsx"></script>
+<script type="text/babel" src="climate/visuals.jsx"></script>
+
+<script type="text/babel">
+const { useState, useMemo } = React;
+
+function MK({ children }) {
+  return (
+    <div style={{
+      fontFamily: 'var(--mono)', fontSize: '0.7rem',
+      letterSpacing: '0.12em', textTransform: 'uppercase',
+      color: 'var(--moss)', display: 'flex', alignItems: 'center', gap: 10,
+    }}>
+      <span style={{ width: 22, height: 1, background: 'currentColor', opacity: 0.6 }} />
+      {children}
+    </div>
+  );
+}
+
+function PrintApp() {
+  return (
+    <div>
+      {/* Cover */}
+      <section style={{ minHeight: '100vh', padding: '40mm 0 20mm', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', breakAfter: 'page' }}>
+        <div className="container">
+          <Logo size={20} />
+        </div>
+        <div className="container">
+          <MK>Lab · UERJ · Rio de Janeiro</MK>
+          <h1 className="display" style={{ fontSize: '4.4rem', marginTop: 24, marginBottom: 28, maxWidth: '95%' }}>
+            Know-how acadêmico para demandas <em style={{ fontStyle: 'italic', color: 'var(--moss)', fontWeight: 400 }}>ambientais</em> de média e alta complexidade.
+          </h1>
+          <p style={{ fontSize: '1.1rem', color: 'var(--ink-2)', maxWidth: 640, lineHeight: 1.5 }}>
+            A Climate é o braço de serviços do <strong style={{ color: 'var(--ink)', fontWeight: 500 }}>LARAMG</strong> — Laboratório de Radioecologia e Mudanças Globais — atuando em monitoramento atmosférico, qualidade do ar e sedimentologia em corpos d'água.
+          </p>
+          <div style={{ marginTop: 36, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <Tag variant="moss">Sedimentos</Tag>
+            <Tag variant="moss">Geoquímica</Tag>
+            <Tag variant="moss">Atmosfera</Tag>
+            <Tag variant="moss">Água</Tag>
+          </div>
+        </div>
+        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', gap: 24 }}>
+          <div style={{ width: '52%', aspectRatio: '4/3' }}>
+            <AbstractPlaceholder seed={1} label="Microscopia · sedimento" tone="moss" />
+          </div>
+          <div style={{
+            fontFamily: 'var(--mono)', fontSize: '0.7rem',
+            letterSpacing: '0.08em', textTransform: 'uppercase',
+            color: 'var(--ink-3)', textAlign: 'right',
+          }}>
+            Catálogo de serviços<br />
+            2026 / Edição completa
+          </div>
+        </div>
+      </section>
+
+      {/* Stats + intro */}
+      <section className="container avoid-break" style={{ padding: '20mm 28px' }}>
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0,
+          borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)',
+        }}>
+          {[
+            ['2005', 'LARAMG fundado', 'Dep. Biofísica e Biometria · UERJ'],
+            ['7', 'Linhas de serviço', 'De Pb-210 a qualidade do ar'],
+            ['150', 'Anos de janela', 'Em datação Pb-210'],
+            ['5', 'Resoluções', 'CONAMA · MS · ANVISA'],
+          ].map(([big, label, sub], i) => (
+            <div key={i} style={{
+              padding: '24px 18px',
+              borderRight: i < 3 ? '1px solid var(--line)' : 'none',
+            }}>
+              <div className="display" style={{ fontSize: '2.2rem', marginBottom: 8 }}>{big}</div>
+              <div style={{ fontSize: '0.86rem', fontWeight: 500, marginBottom: 4 }}>{label}</div>
+              <div style={{ fontSize: '0.76rem', color: 'var(--ink-3)', lineHeight: 1.4 }}>{sub}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Services catalog */}
+      <section style={{ padding: '14mm 0' }}>
+        <div className="container">
+          <MK>Catálogo de serviços</MK>
+          <h2 className="display" style={{ fontSize: '2.4rem', marginTop: 18, marginBottom: 28, maxWidth: 800 }}>
+            Sete linhas técnicas, prontas para suportar pesquisa e demandas ambientais.
+          </h2>
+
+          <div style={{
+            display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 0,
+            border: '1px solid var(--line)', background: 'var(--line)',
+          }}>
+            {SERVICES.map((s) => (
+              <article key={s.id} className="avoid-break" style={{ background: 'var(--paper)', padding: '22px 20px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
+                  <span style={{ fontFamily: 'var(--mono)', fontSize: '0.74rem', color: 'var(--moss)' }}>{s.id}</span>
+                  <Tag variant="outline">{s.categoryLabel}</Tag>
+                </div>
+                <h3 className="display" style={{ fontSize: '1.3rem', marginBottom: 8, fontWeight: 500 }}>{s.title}</h3>
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '0.68rem', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--moss)', marginBottom: 12 }}>
+                  {s.technique}
+                </div>
+                <p style={{ fontSize: '0.84rem', lineHeight: 1.5, color: 'var(--ink-2)', marginBottom: 12 }}>
+                  {s.summary}
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, marginBottom: 12 }}>
+                  {s.details.map((d, i) => (
+                    <li key={i} style={{ fontSize: '0.78rem', padding: '3px 0', display: 'flex', gap: 8 }}>
+                      <span style={{ color: 'var(--moss)' }}>·</span>{d}
+                    </li>
+                  ))}
+                </ul>
+                <div style={{
+                  display: 'flex', justifyContent: 'space-between',
+                  paddingTop: 10, borderTop: '1px solid var(--line)',
+                  fontFamily: 'var(--mono)', fontSize: '0.68rem',
+                  letterSpacing: '0.06em', textTransform: 'uppercase',
+                  color: 'var(--ink-3)',
+                }}>
+                  <span>Entrega: {s.deliverable}</span>
+                  <span>{s.duration}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process */}
+      <section style={{ padding: '14mm 0', background: 'var(--ink)', color: 'var(--paper)', breakBefore: 'page' }}>
+        <div className="container">
+          <MK>Como funciona</MK>
+          <h2 className="display" style={{ fontSize: '2.4rem', marginTop: 18, marginBottom: 32 }}>
+            Do briefing à publicação acadêmica.
+          </h2>
+          <div style={{
+            display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0,
+            borderTop: '1px solid oklch(0.36 0.014 150)',
+          }}>
+            {PROCESS_STEPS.map((step, i) => (
+              <div key={step.n} className="avoid-break" style={{
+                padding: '22px 16px',
+                borderRight: i < 3 ? '1px solid oklch(0.36 0.014 150)' : 'none',
+              }}>
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '0.72rem', color: 'var(--lichen)', letterSpacing: '0.08em', marginBottom: 24 }}>
+                  Etapa {step.n}
+                </div>
+                <h3 className="display" style={{ fontSize: '1.2rem', marginBottom: 10, fontWeight: 500 }}>{step.title}</h3>
+                <p style={{ fontSize: '0.82rem', color: 'oklch(0.78 0.02 130)', lineHeight: 1.5 }}>{step.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Capabilities */}
+      <section style={{ padding: '14mm 0' }}>
+        <div className="container">
+          <MK>Capacidades · Infraestrutura</MK>
+          <h2 className="display" style={{ fontSize: '2.2rem', marginTop: 18, marginBottom: 22 }}>
+            Equipamentos sob a estrutura LARAMG/UERJ.
+          </h2>
+          <p style={{ color: 'var(--ink-2)', fontSize: '0.92rem', maxWidth: 620, marginBottom: 24 }}>
+            Toda a infraestrutura laboratorial e administrativa fica nas dependências da UERJ. Contamos com o apoio de docentes, pós-graduados e alunos em todos os níveis do ensino superior.
+          </p>
+          <ul style={{ listStyle: 'none', padding: 0, borderTop: '1px solid var(--line)' }}>
+            {CAPABILITIES.map((c, i) => (
+              <li key={i} className="avoid-break" style={{
+                display: 'grid', gridTemplateColumns: '40px 1fr auto',
+                alignItems: 'center', padding: '11px 0', gap: 14,
+                borderBottom: '1px solid var(--line)',
+              }}>
+                <span style={{ fontFamily: 'var(--mono)', fontSize: '0.7rem', color: 'var(--ink-3)' }}>{String(i + 1).padStart(2, '0')}</span>
+                <span style={{ fontSize: '0.92rem', fontWeight: 500 }}>{c.label}</span>
+                <Tag variant="outline">{c.kind}</Tag>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Methods */}
+      <section style={{ padding: '14mm 0', background: 'var(--paper-2)', breakBefore: 'page' }}>
+        <div className="container">
+          <MK>Métodos & legislação</MK>
+          <h2 className="display" style={{ fontSize: '2.2rem', marginTop: 18, marginBottom: 18 }}>
+            Toda a metodologia é baseada na legislação vigente.
+          </h2>
+          <p style={{ color: 'var(--ink-2)', fontSize: '0.92rem', maxWidth: 640, marginBottom: 24 }}>
+            Análises e relatórios técnicos são executados em conformidade com resoluções federais, garantindo rastreabilidade científica e legal para o cliente.
+          </p>
+          <div style={{
+            display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 0,
+            border: '1px solid var(--line)', background: 'var(--paper)',
+          }}>
+            {REGULATIONS.map((r, i) => (
+              <div key={i} className="avoid-break" style={{
+                padding: '20px 18px',
+                borderRight: i % 2 === 0 ? '1px solid var(--line)' : 'none',
+                borderBottom: '1px solid var(--line)',
+              }}>
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '0.76rem', letterSpacing: '0.06em', color: 'var(--moss)', marginBottom: 10 }}>
+                  {r.code}
+                </div>
+                <p style={{ fontSize: '0.86rem', color: 'var(--ink-2)', lineHeight: 1.45 }}>{r.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Cases */}
+      <section style={{ padding: '14mm 0' }}>
+        <div className="container">
+          <MK>Projetos selecionados</MK>
+          <h2 className="display" style={{ fontSize: '2.2rem', marginTop: 18, marginBottom: 28 }}>
+            Onde nossas técnicas já contribuíram.
+          </h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
+            {CASES.map((c, i) => (
+              <article key={i} className="avoid-break" style={{ border: '1px solid var(--line)' }}>
+                <div style={{ aspectRatio: '4/3' }}>
+                  <AbstractPlaceholder seed={10 + i} label={c.tag} tone={i % 2 === 0 ? 'moss' : 'paper'} />
+                </div>
+                <div style={{ padding: '16px 16px 18px' }}>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '0.66rem', letterSpacing: '0.06em', color: 'var(--ink-3)', textTransform: 'uppercase', marginBottom: 8 }}>{c.meta}</div>
+                  <h3 className="display" style={{ fontSize: '1rem', marginBottom: 8, fontWeight: 500, lineHeight: 1.25 }}>{c.title}</h3>
+                  <p style={{ fontSize: '0.78rem', color: 'var(--ink-2)', lineHeight: 1.45 }}>{c.body}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team */}
+      <section style={{ padding: '14mm 0', background: 'var(--paper-2)' }}>
+        <div className="container">
+          <MK>Equipe científica</MK>
+          <h2 className="display" style={{ fontSize: '2.2rem', marginTop: 18, marginBottom: 28 }}>
+            Pesquisadores e docentes do LARAMG conduzem cada projeto.
+          </h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }}>
+            {TEAM.map((t, i) => (
+              <div key={i} className="avoid-break">
+                <div style={{ aspectRatio: '3/4', marginBottom: 12 }}>
+                  <AbstractPlaceholder seed={20 + i} label="Retrato" tone={i % 2 === 0 ? 'paper' : 'moss'} />
+                </div>
+                <Tag variant="outline">{t.tag}</Tag>
+                <h3 className="display" style={{ fontSize: '1rem', marginTop: 10, marginBottom: 4, fontWeight: 500 }}>{t.name}</h3>
+                <p style={{ fontSize: '0.78rem', color: 'var(--ink-2)' }}>{t.role}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section style={{ padding: '20mm 0', background: 'var(--ink)', color: 'var(--paper)', breakBefore: 'page' }}>
+        <div className="container">
+          <div style={{ fontFamily: 'var(--mono)', fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--lichen)', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ width: 22, height: 1, background: 'currentColor', opacity: 0.6 }} />
+            Solicitar orçamento
+          </div>
+          <h2 className="display" style={{ fontSize: '2.6rem', marginTop: 18, marginBottom: 22 }}>
+            Vamos conversar sobre seu projeto.
+          </h2>
+          <p style={{ color: 'oklch(0.78 0.02 130)', fontSize: '1rem', maxWidth: 600, marginBottom: 36 }}>
+            Conte sobre seus objetivos, prazo e contexto. Respondemos em até 3 dias úteis com proposta técnica preliminar.
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 36, marginTop: 28 }}>
+            <div>
+              <div style={{ fontFamily: 'var(--mono)', fontSize: '0.7rem', color: 'var(--lichen)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>Endereço</div>
+              <p style={{ fontSize: '0.92rem', lineHeight: 1.55 }}>
+                Departamento de Biofísica e Biometria<br />
+                Instituto de Biologia Roberto Alcantara Gomes<br />
+                Universidade do Estado do Rio de Janeiro · UERJ<br />
+                Rio de Janeiro · Brasil
+              </p>
+            </div>
+            <div>
+              <div style={{ fontFamily: 'var(--mono)', fontSize: '0.7rem', color: 'var(--lichen)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>Contato direto</div>
+              <p style={{ fontSize: '0.92rem', lineHeight: 1.6 }}>
+                contato@climate-laramg.br<br />
+                +55 (21) 0000-0000
+              </p>
+            </div>
+          </div>
+
+          <div style={{ marginTop: 60, paddingTop: 22, borderTop: '1px solid oklch(0.36 0.014 150)', display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--mono)', fontSize: '0.7rem', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'oklch(0.55 0.012 150)' }}>
+            <span>© 2026 Climate · LARAMG/UERJ</span>
+            <span>Catálogo de serviços · 2026</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<PrintApp />);
+
+// Auto-print after fonts + render are ready
+(async () => {
+  try {
+    if (document.fonts && document.fonts.ready) await document.fonts.ready;
+  } catch (e) {}
+  setTimeout(() => window.print(), 800);
+})();
+</script>
+</body>
+</html>
