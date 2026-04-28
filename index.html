@@ -451,6 +451,35 @@
   .leg-card {
     background: var(--bg);
     padding: 32px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: background 0.2s;
+  }
+
+  a.leg-card:hover {
+    background: var(--green-light);
+    cursor: pointer;
+  }
+
+  a.leg-card:hover .leg-code {
+    color: var(--green);
+  }
+
+  .leg-card-download {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-muted);
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  a.leg-card:hover .leg-card-download {
+    color: var(--green);
   }
 
   .leg-code {
@@ -1015,27 +1044,32 @@
   <p class="leg-desc">Análises e relatórios técnicos são executados em conformidade com resoluções federais, garantindo rastreabilidade científica e legal para o cliente.</p>
 
   <div class="leg-grid">
-    <div class="leg-card">
+    <a class="leg-card" href="https://www.gov.br/anvisa/pt-br/assuntos/fiscalizacao-e-monitoramento/ambientes/resolucao-re-n9-de-16-de-janeiro-de-2003.pdf" target="_blank" rel="noopener">
       <div class="leg-code">RE Nº 9</div>
       <div class="leg-name">Resolução — Qualidade do ar em ambientes climatizados</div>
-    </div>
-    <div class="leg-card">
+      <div class="leg-card-download">↗ Abrir PDF oficial</div>
+    </a>
+    <a class="leg-card" href="https://bvsms.saude.gov.br/bvs/publicacoes/portaria_2914_2011.pdf" target="_blank" rel="noopener">
       <div class="leg-code">MS Nº 2914</div>
       <div class="leg-name">Portaria do Ministério da Saúde — Padrões de potabilidade</div>
-    </div>
-    <div class="leg-card">
+      <div class="leg-card-download">↗ Abrir PDF oficial</div>
+    </a>
+    <a class="leg-card" href="https://conama.mma.gov.br/?option=com_sisconama&task=arquivo.download&id=450" target="_blank" rel="noopener">
       <div class="leg-code">CONAMA Nº 357</div>
       <div class="leg-name">Classificação de corpos d'água e diretrizes ambientais</div>
-    </div>
-    <div class="leg-card">
+      <div class="leg-card-download">↗ Abrir PDF oficial</div>
+    </a>
+    <a class="leg-card" href="https://bvsms.saude.gov.br/bvs/saudelegis/gm/2004/prt0518_25_03_2004.html" target="_blank" rel="noopener">
       <div class="leg-code">MS Nº 518</div>
       <div class="leg-name">Portaria do Ministério da Saúde — Controle e vigilância da qualidade da água</div>
-    </div>
-    <div class="leg-card">
+      <div class="leg-card-download">↗ Abrir documento oficial</div>
+    </a>
+    <a class="leg-card" href="https://conama.mma.gov.br/?option=com_sisconama&task=arquivo.download&id=545" target="_blank" rel="noopener">
       <div class="leg-code">CONAMA Nº 396</div>
       <div class="leg-name">Diretrizes para o enquadramento de águas subterrâneas</div>
-    </div>
-    <div class="leg-card" style="background:transparent;"></div>
+      <div class="leg-card-download">↗ Abrir PDF oficial</div>
+    </a>
+    <div class="leg-card" style="background:transparent;pointer-events:none;"></div>
   </div>
 </section>
 
